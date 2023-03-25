@@ -1,6 +1,12 @@
 # Kivy-Poll-Voting-App
 An app for voting on random polls made with KivyMD
 
+<p align="left"> <img src="https://komarev.com
+/ghpvc/?username=mosesab&label=Respository%20
+views&color=0e75b6&style=flat" alt="mosesab" /> </p>
+
+
+
 
 # Preview
 
@@ -34,3 +40,8 @@ An app for voting on random polls made with KivyMD
 
 # App On Android Screen
 <img src = "https://user-images.githubusercontent.com/87482913/227738352-1b9bc097-3b9d-48c0-a775-7653bc46e5ac.jpg" height = "200" width="350">
+
+
+<h3 align="left">Connect with me @ :</h3>
+<p align="left">
+<a href="https://www.linkedin.com/in/moses-b-148214260" target="blank"><img align="center" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="mosesab" height="80" width="90" /></a>
