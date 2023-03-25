@@ -1,12 +1,6 @@
 # Kivy-Poll-Voting-App
 An app for voting on random polls made with KivyMD
 
-<p align="left"> <img src="https://komarev.com
-/ghpvc/?username=mosesab&label=Respository%20
-views&color=0e75b6&style=flat" alt="mosesab" /> </p>
-
-
-
 
 # Preview
 
