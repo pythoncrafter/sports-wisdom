@@ -33,4 +33,4 @@ An app for voting on random polls made with KivyMD
 <img src = "https://user-images.githubusercontent.com/87482913/227738577-8eb9b955-f88f-4f9d-bd56-66c548ee4f4f.jpg" height = "300">
 
 # App An Android Screen
-<img src = "https://user-images.githubusercontent.com/87482913/227738352-1b9bc097-3b9d-48c0-a775-7653bc46e5ac.jpg" height = "300">
+<img src = "https://user-images.githubusercontent.com/87482913/227738352-1b9bc097-3b9d-48c0-a775-7653bc46e5ac.jpg" height = "100">
