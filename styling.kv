@@ -1,0 +1,807 @@
+
+<MyTheme>
+	on_release: root.set_theme_dialog_icon(check, root.text)
+	CheckboxLeftWidget: 
+		id: check 
+		group: "check"
+		theme_text_color: 'Custom'
+		text_color: app.theme_cls.primary_color
+		
+<MyTab>:
+	# COMMON CONTENT GOES HERE !!
+	
+<CreatePoll>
+	on_release: root.set_poll(root.text)
+					
+<SettingsList>:
+	theme_text_color: "Custom" 
+	text_color: app.theme_cls.opposite_bg_dark
+	on_press: app.set_settings(root.text)
+	secondary_font_style : "Caption"
+
+	IconLeftWidget:
+		id: icon
+		icon: root.icon
+		theme_text_color: 'Custom'
+		text_color: app.theme_cls.accent_color
+		
+<PollListItem>:
+	text: root.poll_name
+	secondary_text: root.poll_about
+	theme_text_color: "Custom" 
+	text_color: app.theme_cls.opposite_bg_dark
+	on_press: app.change_screen("voting_poll_screen", poll = root)
+	secondary_font_style : "Caption"
+
+	IconLeftWidget:
+		id: icon
+		icon: root.poll_icon
+		theme_text_color: 'Custom'
+		text_color: app.theme_cls.accent_color
+				
+
+<MDTextField>:
+    font_size: 40
+    #color_active:[1,1,1,1]
+
+				
+<CreateCandidatesCard>	
+	name:  "CreateCandidatesCard " + str(root.card_index)
+	size_hint_y: None
+	height: dp(120)
+	size_hint_x:.9
+	pos_hint: {"center_x": .5}
+	orientation: 'vertical'
+	mode: 'round'
+	md_bg_color:app.theme_cls.bg_dark
+	line_color: app.theme_cls.primary_color		
+	BoxLayout:
+		name: "create-top-box"
+		orientation: 'horizontal'
+		size_hint_y: .4
+		height: self.minimum_height
+		MDBoxLayout:
+			name: "create-top-box-index-box"
+			size_hint_x: .8
+			size_hint_y: 1
+			#md_bg_color: 0, .7, .2, .5
+			#line_color: 0, .7, .2, .5
+			MDLabel: 
+				text: "   " + str(root.card_index) + "."
+				font_style: "Overline"
+				size_hint_x: 1
+				size_hint_y: 1
+				theme_text_color: "Custom"
+				text_color: app.theme_cls.primary_color					
+			MDBoxLayout:
+				name: "create-top-box-delete-box"
+				size_hint_x: .2
+				size_hint_y: 1
+				#md_bg_color: 0, .7, .2, .5
+				#line_color: 0, .7, .2, .5
+				MDIconButton:
+					icon: "delete-circle-outline"
+					#md_bg_color: "#f8d7e3"
+					#always_release: False
+					theme_text_color: "Custom"
+					text_color: app.theme_cls.primary_dark
+					size_hint_x: .4
+					on_release:
+						app.handle_UI_action("Delete Card Candidate", root.card_index)
+	BoxLayout:
+		name: "create-title-box"
+		orientation: 'horizontal'
+		size_hint_y: .6
+		height: self.minimum_height
+		MDBoxLayout:
+			name: "create-title-box-icon-box"
+			size_hint_x: .3
+			size_hint_y: 1
+			#md_bg_color: 0, .7, .2, .5
+			#line_color: 0, .7, .2, .5
+			MDIconButton: 
+				icon: "account"
+				theme_text_color: "Custom"
+				text_color: app.theme_cls.accent_color
+				icon_size: "38sp"
+				on_touch_up: print("select candidate icon")
+			MDBoxLayout:
+				name: "create-title-box-name-box"
+				orientation: 'vertical'
+				size_hint_y: 1
+				size_hint_x: 1						
+				MDTextField:
+					hint_text:'Candidate Name'
+					helper_text: "Enter this candidate's name" 
+					helper_text_mode: "on_focus"
+					max_text_length: 20
+					width: 200
+					font_size: 30
+					icon_left: 'cards-variant'
+					size_hint_x:.85
+					color_active:[1,1,1,1]
+	BoxLayout:
+		name: "create-body-box"
+		orientation: 'vertical'										
+		MDTextField:
+			hint_text : "About Candidate"
+			helper_text: "A short description of this candidate" 
+			helper_text_mode: "on_focus"							
+			max_text_length: 50
+			width: 200
+			font_size: 30
+			normal_color : 1, 1, 1, 1
+			color_active : 1, 1, 1, 1
+			icon_left : 'information'
+			size_hint_x: .8
+			pos_hint: {"center_x": .5, "center_y": .5}
+
+<VoteCandidatesCard> 
+	name:  "VoteCandidatesCard " + str(root.card_index)
+	size_hint_y: None
+	height: dp(120)
+	size_hint_x:.9
+	pos_hint: {"center_x": .5}
+	orientation: 'vertical'
+	mode: 'round'
+	md_bg_color:app.theme_cls.bg_dark
+	line_color: app.theme_cls.primary_color		
+	BoxLayout:
+		name: "vote-top-box"
+		orientation: 'horizontal'
+		size_hint_y: .4
+		height: self.minimum_height
+		#md_bg_color: 0, .7, .2, .5
+		#line_color: 0, .7, .2, .5
+		MDLabel: 					
+			text: "   " + str(root.card_index) + "."
+			font_style: "Overline"
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.primary_color					
+	BoxLayout:
+		name: "vote-title-box"
+		orientation: 'horizontal'
+		size_hint_y: .6
+		height: self.minimum_height
+		MDBoxLayout:
+			name: "title-box-icon-box"
+			size_hint_x: .3
+			size_hint_y: 1
+			#md_bg_color: 0, .7, .2, .5
+			#line_color: 0, .7, .2, .5
+			MDIcon: 
+				icon: "account"
+				theme_text_color: "Custom"
+				text_color: app.theme_cls.accent_color
+				icon_size: "38sp"
+			MDBoxLayout:
+				name: "vote-title-box-name-box"
+				orientation: 'vertical'
+				size_hint_y: 1
+				size_hint_x: 1			
+				MDLabel: 					
+					text: "   " + str(root.card_index) + "."
+					font_style: "H6"
+					font_size: 30
+					size_hint_x: 1
+					size_hint_y: 1
+					theme_text_color: "Custom"
+					text_color: app.theme_cls.primary_color										
+	BoxLayout:
+		name: "vote-body-box"
+		orientation: 'vertical'
+		pos_hint: {"center_x": .5, "center_y": .5} 														
+		MDLabel: 					
+			text: "   " + str(root.card_index) + "."
+			font_style: "Body1"
+			font_size: 30
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.primary_dark
+	MDBoxLayout:
+		#md_bg_color: 0, .7, .2, .5
+		line_color: app.theme_cls.primary_color
+		name: "vote-bottom-box"
+		orientation: 'horizontal'
+		size_hint_y: .4
+		height: self.minimum_height
+			
+		CheckboxLeftWidget: 
+			id: check 
+			group: "check"
+			theme_text_color: 'Custom'
+			text_color: app.theme_cls.primary_color
+		
+<VoteLiveResultCard> 
+	name:  "VoteLiveResultCard " + str(root.card_index)
+	size_hint_y: None
+	height: dp(120)
+	size_hint_x:.9
+	pos_hint: {"center_x": .5}
+	orientation: 'vertical'
+	mode: 'round'
+	md_bg_color:app.theme_cls.bg_dark
+	line_color: app.theme_cls.primary_color		
+	BoxLayout:
+		name: "result-top-box"
+		orientation: 'horizontal'
+		size_hint_y: .4
+		height: self.minimum_height
+		#md_bg_color: 0, .7, .2, .5
+		#line_color: 0, .7, .2, .5
+		MDLabel: 					
+			text: "   " + str(root.card_index) + "."
+			font_style: "Overline"
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.primary_color					
+	BoxLayout:
+		name: "result-title-box"
+		orientation: 'horizontal'
+		size_hint_y: .6
+		height: self.minimum_height
+		MDBoxLayout:
+			name: "result-title-box-icon-box"
+			size_hint_x: .3
+			size_hint_y: 1
+			#md_bg_color: 0, .7, .2, .5
+			#line_color: 0, .7, .2, .5
+			MDIcon: 
+				icon: "account"
+				theme_text_color: "Custom"
+				text_color: app.theme_cls.accent_color
+				icon_size: "38sp"
+			MDBoxLayout:
+				name: "result-title-box-name-box"
+				orientation: 'vertical'
+				size_hint_y: 1
+				size_hint_x: 1			
+				MDLabel: 					
+					text: "   " + str(root.card_index) + "."
+					font_style: "H6"
+					font_size: 30
+					size_hint_x: 1
+					size_hint_y: 1
+					theme_text_color: "Custom"
+					text_color: app.theme_cls.primary_color										
+	BoxLayout:
+		name: "result-body-box"
+		orientation: 'vertical'
+		pos_hint: {"center_x": .5, "center_y": .5} 														
+		MDLabel: 					
+			text: "   " + str(root.card_index) + "."
+			font_style: "Body1"
+			font_size: 30
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.primary_dark
+	MDBoxLayout:
+		#md_bg_color: 0, .7, .2, .5
+		line_color: app.theme_cls.primary_color
+		name: "result-bottom-box"
+		orientation: 'horizontal'
+		size_hint_y: .4
+		height: self.minimum_height	
+		MDLabel: 					
+			text: "15 of 50" 
+			font_style: "H6"
+			font_size: 30
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.primary_color	
+			pos_hint: {"center_x": .15, "center_y": .5} 						
+		MDLabel: 					
+			text: "30%" 
+			font_style: "H6"
+			font_size: 30
+			size_hint_x: 1
+			size_hint_y: 1
+			theme_text_color: "Custom"
+			text_color: app.theme_cls.accent_color	
+			pos_hint: {"center_x": .5, "center_y": .5} 		
+		
+Screen:
+	ScreenManager:
+		id : screen_manager
+		Screen:
+			name: "home_screen"
+			BoxLayout:
+				orientation: 'vertical'
+				MDTopAppBar:
+					id: app_heading
+					pos_hint: {'top': True}
+					MDIcon:
+						icon: 'vote'
+						color: app.theme_cls.bg_dark
+						pos_hint: {"center_x": .5, "top": .99}
+					MDLabel:											
+				        text: 'Electora'
+				        pos_hint: {"center_x": .5, "top": .99}	
+				        theme_text_color: "Custom"
+					    text_color: app.theme_cls.bg_dark
+					    font_style: "H6"
+					    font_size:40
+					    halign:'center'
+					    size_hint_y:None
+					    height:self.texture_size[1]
+										
+				MDTabs:
+					id: home_tabs
+					text_color_normal: app.theme_cls.bg_dark
+					text_color_active: app.theme_cls.bg_dark
+					text_color_inactive: app.theme_cls.bg_dark
+					on_tab_switch: app.on_tab_switch(*args)
+					MyTab:
+						name: "polls_tab"
+						title: 'POLLS'
+						icon: 'card'
+						ScrollView:
+							MDList:
+								id: home_poll_box
+								#THE NOT Voted in PollList are SPAWNED HERE
+								
+						FloatLayout:
+							MDFloatingActionButton:
+								md_bg_color : (0.925, 0.898, 0.866, 1)
+								text_color : app.theme_cls.primary_dark
+								icon : 'card-plus'
+								size: 43.5, 43.5
+								pos : root.width - 1.65*self.width, root.y + 4.35*self.height//2
+								on_press:
+									#print("create_poll_screen")
+									app.change_screen("create_poll_screen")		
+																
+					MyTab:
+						name: "settings_tab"
+						title: 'SETTINGS'
+						theme_text_color: "Custom" 
+						text_color: app.theme_cls.opposite_bg_dark
+						icon: 'tools'					                                       
+                        ScrollView:
+                            MDList:
+                                id: settings_md_list
+																																
+					MyTab:
+						id: history_tab
+						name: "history_tab"
+						title: 'HISTORY'
+						theme_text_color: "Custom" 
+						text_color: app.theme_cls.opposite_bg_dark
+						icon: 'history'
+						ScrollView:
+							MDList:
+								id: home_history_box
+								OneLineListItem:
+									text : 'Recent polls'
+									theme_text_color: "Custom" 
+									#text_color: app.theme_cls.opposite_bg_dark
+									text_color: app.theme_cls.accent_color
+								#THE Voted in PollList are SPAWNED HERE		
+								
+		Screen:
+			name : "history_poll_screen"	
+			BoxLayout:
+				orientation: 'vertical'
+				MDTopAppBar:
+					id : toolbar_history_screen
+					pos_hint: {'top': True}
+					left_action_items : [['keyboard-backspace', lambda x : app.change_screen("home_screen", curr = 'back')]]
+                    title: "Vote Poll Name"                    
+                    theme_text_color: "Custom" 
+                    text_color: app.theme_cls.opposite_bg_dark
+                    elevation: 10                                                                   
+                MDBottomNavigation:
+                    id: history_panel
+                    text_color_normal: app.theme_cls.disabled_primary_color
+					text_color_active: app.theme_cls.disabled_primary_color
+					text_color_inactive: app.theme_cls.disabled_primary_color
+                       
+                    MDBottomNavigationItem:
+                        name: "historypoll1"
+                        text: "Results"
+                        theme_text_color: "Custom" 
+                        text_color: app.theme_cls.opposite_bg_dark
+                        icon: "file-certificate"         
+                               			    
+					    BoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height + 50
+                            spacing: "7dp"
+                            pos_hint: {"center_x": .5, "top": 1}                            	
+                            MDBoxLayout:
+                            	#md_bg_color: 0, 1, .8, .5
+							    #line_color: 0, 1, .8, .5
+	                            orientation: "vertical"
+	                            size_hint_x: 1
+	                            size_hint_y: None
+	                            height: self.minimum_height
+	                            spacing: "7dp"
+	                            pos_hint: {"center_x": .5, "top": 1}		
+		                        MDIcon:
+		                        	id: mdicon_history_screen	                        	        
+				                    icon: 'apple'
+				                    color: app.theme_cls.primary_color
+				                    #font_style:'Button'					         
+							        icon_size:40
+				                    pos_hint: {"center_x": .5, "top": 1}  
+						        MDLabel:
+						            id: mdlabel_history_screen
+						            name: 'vote-poll-about'
+						            text : 'Choose your Favourite Fruit2345678901234567890'
+						            theme_text_color: "Custom"
+						            text_color: app.theme_cls.opposite_bg_dark						          
+						            font_style: 'Subtitle2'
+						            font_size:40
+						            size_hint_x: .6				            
+						            size_hint_y:None
+						            height:self.texture_size[1]	
+						            halign:'center'
+						            pos_hint: {"center_x": .5, "top": 1}			       	
+					    BoxLayout:
+                            orientation: "vertical"
+                            size_hint_x: 1
+                            #size_hint_y: 1
+                            pos_hint: {"center_x": .5, "top": .86}
+                            #md_bg_color: 0, .7, .2, .5
+                            #line_color: 0, .7, .2, .5	               
+		                    ScrollView:
+							    do_scroll_x: False
+							    do_scroll_y: True	
+							    MDBoxLayout:
+							        id: history_candidate_content_box
+					                orientation: "vertical"
+							        spacing: '15dp'
+							        pos_hint: {"center_x": .5, "top": .99}	                                                           		            		
+							        height: self.minimum_height
+							        size_hint_x: 1
+							        size_hint_y: None        
+		                            MDCard: 
+		                            	height: '450dp'           
+		                            #THE VoteLiveResultCard SPAWN HERE               
+		                            MDCard:
+		                            	height: '450dp'         		                    							    
+						    																						
+		                    																			
+		Screen:
+            name : "create_poll_screen"
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    title: "Create New Poll"
+                    theme_text_color: "Custom" 
+                    text_color: app.theme_cls.opposite_bg_dark
+                    elevation: 10
+                    left_action_items: [['keyboard-backspace', lambda x: app.change_screen("home_screen", 'back')]]
+                MDBottomNavigation:
+                    id: create_panel
+
+                    MDBottomNavigationItem:
+                        name: "createpoll1"
+                        text: "Poll"
+                        theme_text_color: "Custom" 
+                        text_color: app.theme_cls.opposite_bg_dark
+                        icon: "card"
+				    
+					    BoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height
+                            spacing: dp(10)
+                            pos_hint: {"center_x": .5, "top": .95}					
+					        MDLabel:
+					            text: "Create a New Poll"
+					            theme_text_color: "Custom"
+					            text_color: app.theme_cls.accent_color
+					            font_style:'Button'
+					            font_size:40
+					            halign:'center'
+					            size_hint_y:None
+					            height:self.texture_size[1]	
+					            pos_hint: {"center_x": .5}				            					            
+					        MDTextField:
+					            hint_text:'Poll Name'
+					            helper_text: "Enter the poll name" 
+								helper_text_mode: "on_focus"
+								max_text_length: 20
+								width: 200
+            					font_size: 30
+					            icon_right: 'cards-variant'
+					            size_hint_x:.8
+					            color_active:[1,1,1,1]
+					            pos_hint: {"center_x": .5}
+					            							              					       					        
+						    MDTextField:
+								hint_text : "About Poll"
+								helper_text: "A short description of the poll" 
+								helper_text_mode: "on_focus"							
+								max_text_length: 50
+								width: 200
+            					font_size: 30
+								normal_color : 1, 1, 1, 1
+								color_active : 1, 1, 1, 1
+								icon_right : 'information'
+					            size_hint_x: .8			
+					            pos_hint: {"center_x": .5}
+					            #min_height: "50dp"		            
+					            #max_height: "50dp"
+					            #fill_color: 0, 0, 0, .4
+					            multiline: False
+						    BoxLayout:
+		                        orientation: "vertical"
+		                        size_hint_y: None
+		                        height: self.minimum_height
+		                        spacing: dp(30)
+		                        pos_hint: {"center_x": .5, "top": .98}
+							    MDFlatButton:	                            
+			                        pos_hint: {"center_x": .5}
+			                        size_hint_x:.84	                            
+			                        on_release: app.handle_UI_action("Poll Category")					        										    	
+								    MDTextField:					          
+								        hint_text: "Category: None"
+								        helper_text: "Select the poll category" 
+										helper_text_mode: "persistent"		
+								        id: display_poll_category
+								        icon_right : 'account-card'
+								        disabled: True		
+								        size_hint_x:1						            			            
+								        color_inactive:[1,1,1,1]					            
+								        #color_active:[1,1,1,1]						            
+								MDFlatButton:	                            
+			                        pos_hint: {"center_x": .5}
+			                        size_hint_x:.84	                            
+			                        on_release: app.handle_UI_action("Poll Duration")					        										    	
+								    MDTextField:					          
+								        hint_text: "Duration: None"
+								        helper_text: "Select the poll life-time" 
+										helper_text_mode: "persistent"		
+								        id: display_poll_duration
+								        icon_right : "clock"
+								        disabled: True		
+								        size_hint_x:1						            			            
+								        color_inactive:[1,1,1,1]					            
+								        #color_active:[1,1,1,1]
+							            
+						    BoxLayout:
+	                            orientation: "vertical"
+	                            size_hint_y: None
+	                            height: self.minimum_height + 50
+	                            spacing: "9dp"
+	                            pos_hint: {"center_x": .5, "top": 0.9}    				            
+							    MDFillRoundFlatIconButton:
+							        text: "Next"
+							        #font_style:'Button'
+							        theme_text_color: "Custom"
+							        text_color: app.theme_cls.accent_color
+							        md_bg_color: app.theme_cls.disabled_primary_color   						        
+							        pos_hint:{'center_x':.5, 'bottom':.7}		
+							        mode: "round"
+							        on_release: app.handle_UI_action("Switch Create-Poll Bottom-Tab")
+							        icon: "page-next"
+								    icon_color: app.theme_cls.accent_color
+	                        				
+							        							        				        						        						
+                    MDBottomNavigationItem:
+                        name: "createpoll2"
+                        text: "Candidates"
+                        icon: "account-group"
+                        #on_tab_press: app.root.set_wordCloud_settingsGUI()
+                       
+                        BoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height + 50
+                            spacing: "10dp"
+                            pos_hint: {"center_x": .5, "top": 1}	
+                            
+                            MDLabel:
+						        text: "Create Poll Candidates "
+						        theme_text_color: "Custom"
+						        text_color: app.theme_cls.accent_color
+						        font_style:'Button'
+						        font_size:40
+						        halign:'center'
+						        size_hint_y:None
+						        height:self.texture_size[1]
+						MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_x: 1                         
+                            pos_hint: {"center_x": .5, "top": .87}
+                            #md_bg_color: 0, .7, .2, .5
+                            #line_color: 0, .7, .2, .5	            
+		                    ScrollView:
+							    do_scroll_x: False
+							    do_scroll_y: True
+							    #scroll_type: ['bars', 'content']
+							    #bar_width: '10dp'
+							    #scroll_y: .8						    
+							    #pos_hint: {"center_x": .5, "top": .99}	
+							    MDBoxLayout:
+							        id: create_candidate_content_box
+							        #md_bg_color: 0, 1, .8, .5
+							        #line_color: 0, 1, .8, .5
+					                orientation: "vertical"
+					                #padding_x : dp(20)
+							        spacing: '15dp'
+							        pos_hint: {"center_x": .5, "top": .99}	                                                           		            		
+							        height: self.minimum_height
+							        size_hint_x: 1
+							        size_hint_y: None        
+		                            MDCard: 
+		                            	height: '450dp'           
+		                            #THE CreateCandidatesCard SPAWN HERE               
+		                            MDCard:
+		                            	height: '450dp'                                                                                        				
+						FloatLayout:							
+							MDFloatingActionButton:
+								id: create_candidate_button
+								md_bg_color : (0.925, 0.898, 0.866, 1)
+								text_color : app.theme_cls.primary_dark
+								icon : 'account-plus'
+								size: 43.5, 43.5
+								pos : root.width - 1.65*self.width, root.y + 4.35*self.height//2
+								on_press:
+									app.handle_UI_action("Generate New Candidate")
+							MDFloatingActionButton:
+								icon: "progress-upload"
+								md_bg_color : app.theme_cls.primary_color
+								text_color : app.theme_cls.accent_color							
+								size : 50, 50
+								pos : root.width - 1.5*self.width, root.y + self.height//2
+								theme_text_color: "Custom"
+								on_press:
+									print("Upload Poll")
+														
+														
+                     														
+		
+		Screen:
+			name : "voting_poll_screen"	
+			BoxLayout:
+				orientation: 'vertical'
+				MDTopAppBar:
+					id : toolbar_vote_screen
+					pos_hint: {'top': True}
+					right_action_items : [['card-plus', lambda x : app.change_screen("create_poll_screen")]] 
+					left_action_items : [['keyboard-backspace', lambda x : app.change_screen("home_screen", curr = 'back')]]
+                    title: "Vote Poll Name"                    
+                    theme_text_color: "Custom" 
+                    text_color: app.theme_cls.opposite_bg_dark
+                    elevation: 10                         
+                                          
+                MDBottomNavigation:
+                    id: vote_panel
+
+                    MDBottomNavigationItem:
+                        name: "votepoll1"
+                        text: "Vote"
+                        theme_text_color: "Custom" 
+                        text_color: app.theme_cls.opposite_bg_dark
+                        icon: "vote"                   
+				    
+					    BoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height + 50
+                            spacing: "7dp"
+                            pos_hint: {"center_x": .5, "top": 1}
+                            	
+                            MDBoxLayout:
+                            	#md_bg_color: 0, 1, .8, .5
+							    #line_color: 0, 1, .8, .5
+	                            orientation: "vertical"
+	                            size_hint_x: 1
+	                            size_hint_y: None
+	                            height: self.minimum_height
+	                            spacing: "7dp"
+	                            pos_hint: {"center_x": .5, "top": 1}		
+		                        MDIcon:
+		                        	id: mdicon_vote_screen	                        	        
+				                    icon: 'apple'
+				                    color: app.theme_cls.primary_color
+				                    #font_style:'Button'					         
+							        icon_size:40
+				                    pos_hint: {"center_x": .5, "top": 1}  
+						        MDLabel:
+						            id: mdlabel_vote_screen
+						            name: 'vote-poll-about'
+						            text : 'Choose your Favourite Fruit2345678901234567890'
+						            theme_text_color: "Custom"
+						            text_color: app.theme_cls.opposite_bg_dark						          
+						            font_style: 'Subtitle2'
+						            font_size:40
+						            size_hint_x: .6				            
+						            size_hint_y:None
+						            height:self.texture_size[1]	
+						            halign:'center'
+						            pos_hint: {"center_x": .5, "top": 1}
+			       	
+					    MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_x: 1
+                            #size_hint_y: 1
+                            pos_hint: {"center_x": .5, "top": .86}
+                            #md_bg_color: 0, .7, .2, .5
+                            #line_color: 0, .7, .2, .5	            
+       
+		                    ScrollView:
+							    do_scroll_x: False
+							    do_scroll_y: True
+							    #scroll_type: ['bars', 'content']
+							    #bar_width: '10dp'
+							    #scroll_y: .8						    
+							    #pos_hint: {"center_x": .5, "top": .99}	
+							    MDBoxLayout:
+							        id: vote_candidate_content_box
+							        #md_bg_color: 0, 1, .8, .5
+							        #line_color: 0, 1, .8, .5
+					                orientation: "vertical"
+					                #padding_x : dp(20)
+							        spacing: '15dp'
+							        pos_hint: {"center_x": .5, "top": .99}	                                                           		            		
+							        height: self.minimum_height
+							        size_hint_x: 1
+							        size_hint_y: None        
+		                            MDCard: 
+		                            	height: '450dp'           
+		                            #THE VoteCandidatesCard SPAWN HERE               
+		                            MDCard:
+		                            	height: '450dp'         		                    							    
+						    
+                    MDBottomNavigationItem:
+                        name: "votepoll2"
+                        text: "Live Result"
+                        icon: "file-certificate"
+                        on_tab_press: app.handle_UI_action("Show Vote Live Result")                						
+						BoxLayout:
+                            orientation: "vertical"
+                            size_hint_y: None
+                            height: self.minimum_height + 50
+                            spacing: "10dp"
+                            pos_hint: {"center_x": .5, "top": 1}	                           
+                            MDLabel:
+						        text: "Poll Live Result "
+						        theme_text_color: "Custom"
+						        text_color: app.theme_cls.accent_color
+						        font_style:'Button'
+						        font_size:40
+						        halign:'center'
+						        size_hint_y:None
+						        height:self.texture_size[1]
+						MDBoxLayout:
+                            orientation: "vertical"
+                            size_hint_x: 1                         
+                            pos_hint: {"center_x": .5, "top": .87}
+                            #md_bg_color: 0, .7, .2, .5
+                            #line_color: 0, .7, .2, .5	            
+		                    ScrollView:
+							    do_scroll_x: False
+							    do_scroll_y: True
+							    #scroll_type: ['bars', 'content']
+							    #bar_width: '10dp'
+							    #scroll_y: .8						    
+							    #pos_hint: {"center_x": .5, "top": .99}	
+							    MDBoxLayout:
+							        id: live_result_card_box
+							        #md_bg_color: 0, 1, .8, .5
+							        #line_color: 0, 1, .8, .5
+					                orientation: "vertical"
+					                #padding_x : dp(20)
+							        spacing: '15dp'
+							        pos_hint: {"center_x": .5, "top": .99}	                                                           		            		
+							        height: self.minimum_height
+							        size_hint_x: 1
+							        size_hint_y: None        
+		                            MDCard: 
+		                            	height: '450dp'           
+		                            #THE VoteLiveResultCard SPAWN HERE               
+		                            MDCard:
+		                            	height: '450dp'               
+      
+	
