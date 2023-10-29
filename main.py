@@ -299,31 +299,31 @@ class VotePoll(OneLineIconListItem):
 				}
 
 	@classmethod
-	def place_holder_generate_home_polls_UI(self):
+	def place_holder_generate_home_polls_UI(cls):
 		''' generate's or updates the VoteLiveResultCard UI for each candidate in a poll '''
-		home_parent = MainApp.get_running_app().root.ids.home_poll_box
-		history_parent = MainApp.get_running_app().root.ids.home_history_box
-		categories_list = list(self.place_holder_polls.items())
-		self.place_holder_poll_candidate_count = random.randint(4, 10)
-				
-		for new_poll in range( len(categories_list )):
-			if new_poll > (len(categories_list ) / 2):
-				number = random.randint(0, len(categories_list) - 1) 
-		
-				home_parent.add_widget( PollListItem(poll_icon = categories_list[number][1] [0],
-				poll_name = categories_list[number][0], 
-				poll_about = categories_list[number][1] [1],
-				poll_user_has_voted = False
-				), index =0 )
-			else:
-				number = random.randint(0, len(categories_list) - 1) 
-		
-				history_parent.add_widget( PollListItem(poll_icon = categories_list[number][1] [0],
-				poll_name = categories_list[number][0], 
-				poll_about = categories_list[number][1] [1],
-				poll_user_has_voted = True
-				), index =0 )
+	        if MainApp.get_running_app() is not None and MainApp.get_running_app().root is not None:
+	            home_parent = MainApp.get_running_app().root.ids.home_poll_box
+	            history_parent = MainApp.get_running_app().root.ids.home_history_box
+	            categories_list = list(cls.place_holder_polls.items())
+	            cls.place_holder_poll_candidate_count = random.randint(4, 10)
 	
+	            for new_poll in range(len(categories_list)):
+	                if new_poll > (len(categories_list) / 2):
+	                    number = random.randint(0, len(categories_list) - 1)
+	
+	                    home_parent.add_widget(PollListItem(poll_icon=categories_list[number][1][0],
+	                                                        poll_name=categories_list[number][0],
+	                                                        poll_about=categories_list[number][1][1],
+	                                                        poll_user_has_voted=False
+	                                                        ), index=0)
+	                else:
+	                    number = random.randint(0, len(categories_list) - 1)
+	
+	                    history_parent.add_widget(PollListItem(poll_icon=categories_list[number][1][0],
+	                                                           poll_name=categories_list[number][0],
+	                                                           poll_about=categories_list[number][1][1],
+	                                                           poll_user_has_voted=True
+	                                                           ), index=0)
 					
 	@classmethod
 	def place_holder_generate_poll_candidates_card(self):
