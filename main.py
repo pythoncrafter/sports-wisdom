@@ -367,7 +367,20 @@ class VotePoll(OneLineIconListItem):
 		for _index in range(count):
 			parent.add_widget(VoteLiveResultCard(card_index = _index + 1), index =1)
 		
-		
+from kivy.lang.builder import Builder
+from kivy.clock import Clock	
+from kivy.properties import StringProperty
+from kivymd.app import MDApp
+from kivymd.theming import ThemeManager
+
+KV = '''
+Screen:
+
+    MDToolbar:
+        title: "Example App"
+        left_action_items: [["menu", lambda x: app.callback()]]
+        elevation: 10
+'''	
 		
 class MainApp(MDApp):
 	''' The Main App class handles many diverse in-app operations '''
@@ -516,4 +529,5 @@ class MainApp(MDApp):
 
 
 if __name__ == '__main__':
-	MainApp().run()
+	app = MainApp()
+	app.run()
