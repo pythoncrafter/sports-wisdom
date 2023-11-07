@@ -284,7 +284,6 @@ class VotePoll(OneLineIconListItem):
 	# PLACEHOLDER REGION - Delete placeholder code, once back-end is complete.
 	
 	place_holder_poll_candidate_count = 0
-
 	place_holder_polls = {
   				"Which fundamental skill is crucial for beginners to learn first?": ["Dribbling", "Shooting", "Passing"],
   				"What is the most challenging aspect of teaching basketball remotely?": ["Maintaining engagement", "Demonstrating techniques", "Providing individual feedback"],
@@ -300,71 +299,75 @@ class VotePoll(OneLineIconListItem):
 
 	@classmethod
 	def place_holder_generate_home_polls_UI(self):
-		''' generate's or updates the VoteLiveResultCard UI for each candidate in a poll '''
-		home_parent = MainApp.get_running_app().root.ids.home_poll_box
-		history_parent = MainApp.get_running_app().root.ids.home_history_box
-		categories_list = list(self.place_holder_polls.items())
-		self.place_holder_poll_candidate_count = random.randint(4, 10)
-				
-		for new_poll in range( len(categories_list )):
-			if new_poll > (len(categories_list ) / 2):
-				number = random.randint(0, len(categories_list) - 1) 
-		
-				home_parent.add_widget( PollListItem(poll_icon = categories_list[number][1] [0],
-				poll_name = categories_list[number][0], 
-				poll_about = categories_list[number][1] [1],
-				poll_user_has_voted = False
-				), index =0 )
-			else:
-				number = random.randint(0, len(categories_list) - 1) 
-		
-				history_parent.add_widget( PollListItem(poll_icon = categories_list[number][1] [0],
-				poll_name = categories_list[number][0], 
-				poll_about = categories_list[number][1] [1],
-				poll_user_has_voted = True
-				), index =0 )
+	    home_parent = MainApp.get_running_app().root.ids.home_poll_box
+	    history_parent = MainApp.get_running_app().root.ids.home_history_box
+	    categories_list = list(self.place_holder_polls.items())
+	    self.place_holder_poll_candidate_count = random.randint(4, 10)
 	
-					
+	    for new_poll in range(len(categories_list)):
+	        if new_poll > (len(categories_list) / 2):
+	            number = random.randint(0, len(categories_list) - 1)
+	
+	            home_parent.add_widget(PollListItem(poll_icon=categories_list[number][1][0],
+	                                                poll_name=categories_list[number][0],
+	                                                poll_about=categories_list[number][1][1],
+	                                                poll_user_has_voted=False), index=0)
+	        else:
+	            number = random.randint(0, len(categories_list) - 1)
+	
+	            history_parent.add_widget(PollListItem(poll_icon=categories_list[number][1][0],
+	                                                   poll_name=categories_list[number][0],
+	                                                   poll_about=categories_list[number][1][1],
+	                                                   poll_user_has_voted=True), index=0)
+	
+	
 	@classmethod
 	def place_holder_generate_poll_candidates_card(self):
-		# Create's a new candidate MDCard
-		self.results_first_call = True
-		self.place_holder_poll_candidate_count = random.randint(2, 10) 
-		parent = MainApp.get_running_app().root.ids.vote_candidate_content_box
-		# there is an invisible first and last MDCard, we need to avoid counting.
-		# remove existing candidate_cards
-		index = 1
-		last = (len(parent.children) - 1)
-		for candidate_card in parent.children[index : last]:
-			parent.remove_widget(candidate_card)
-			
-		# add new candidate_cards
-		for _index in range(self.place_holder_poll_candidate_count):
-				parent.add_widget(VoteCandidatesCard(card_index = _index + 1), index =1)
+	    self.results_first_call = True
+	    self.place_holder_poll_candidate_count = random.randint(2, 10)
+	    parent = MainApp.get_running_app().root.ids.vote_candidate_content_box
+	
+	    index = 1
+	    last = len(parent.children) - 1
+	    for candidate_card in parent.children[index:last]:
+	        parent.remove_widget(candidate_card)
+	
+	    for _index in range(self.place_holder_poll_candidate_count):
+	        parent.add_widget(VoteCandidatesCard(card_index=_index + 1), index=1)
+	
 	
 	@classmethod
 	def place_holder_generate_poll_live_results_card(self):
-		parent = MainApp.get_running_app().root.ids.live_result_card_box
-		# if it's the first time any poll is calling generate_poll_live_results_card()
-		# generate live results card UI
-		if self.results_first_call:
-			self.results_first_call = False
-			for _index in range(self.place_holder_poll_candidate_count):
-				parent.add_widget(VoteLiveResultCard(card_index = _index + 1), index =1)
-		else:
-			# update live results card UI
-			pass
-			
+	    parent = MainApp.get_running_app().root.ids.live_result_card_box
+	    if self.results_first_call:
+	        self.results_first_call = False
+	        for _index in range(self.place_holder_poll_candidate_count):
+	            parent.add_widget(VoteLiveResultCard(card_index=_index + 1), index=1)
+	    else:
+	        pass
+	
+	
 	@classmethod
 	def place_holder_generate_history_results_card(self):
-		parent = MainApp.get_running_app().root.ids.history_candidate_content_box
-		# if it's the first time any poll is calling generate_poll_live_results_card()
-		# generate live results card UI
-		count = random.randint(2, 10) 
-		for _index in range(count):
-			parent.add_widget(VoteLiveResultCard(card_index = _index + 1), index =1)
-		
-		
+	    parent = MainApp.get_running_app().root.ids.history_candidate_content_box
+	    count = random.randint(2, 10)
+	    for _index in range(count):
+	        parent.add_widget(VoteLiveResultCard(card_index=_index + 1), index=1)
+
+from kivy.lang.builder import Builder
+from kivy.clock import Clock	
+from kivy.properties import StringProperty
+from kivymd.app import MDApp
+from kivymd.theming import ThemeManager
+
+KV = '''
+Screen:
+
+    MDToolbar:
+        title: "Example App"
+        left_action_items: [["menu", lambda x: app.callback()]]
+        elevation: 10
+'''	
 		
 class MainApp(MDApp):
 	''' The Main App class handles many diverse in-app operations '''
@@ -513,4 +516,5 @@ class MainApp(MDApp):
 
 
 if __name__ == '__main__':
-	MainApp().run()
+	app = MainApp()
+	app.run()
