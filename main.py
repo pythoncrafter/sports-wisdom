@@ -284,18 +284,18 @@ class VotePoll(OneLineIconListItem):
 	# PLACEHOLDER REGION - Delete placeholder code, once back-end is complete.
 	
 	place_holder_poll_candidate_count = 0
-	place_holder_polls= {
-				"Favourite Fruits" : ["apple", "Choose your favourite Fruit"],
-				"Most Loved President" : [ "heart", "If you choose Buhari, I go swear for you" ],
-				"Should Fuoye allow bikes enter school" : ["run-fast", "Abeg let's protest, i hate walking"],
-				"Is Fuoye 100L school fees too high"  :  ["cash", "I ignorantly collected admission, now i wan japa because of school fees"],
-				"Should 100L date 400L"  : ["account-school", "Please Vote No !!!. i don't want to collect breakfast"],
-				"Can 3.9 CGPA at 300L get First Class."  :  ["bird", "Abeg help, i want to finish with First Class"],
-				"Will AI replace us" :  ["filmstrip","Yes, The answer is yes, e go sup like film trick for una eyes."],
-				"Is 'baje' tomatoes healthy"  : ["hospital-box", "i only eat 'baje' tomatoe because it's cheaper but i heard it has worms that can cause ulcer."], 
-				"CSC will still win, lol"  : ["run-fast", "Who will we tomorrow's match: CSC or BCH"] ,
-				"Favourite Parent"  : ["face-woman-shimmer" , "Who do you like more between your mom and dad."],
-				"Is it Art or Science" : ["brush-variant", "Should i study Arts or Sciences"]
+
+	place_holder_polls = {
+  				"Which fundamental skill is crucial for beginners to learn first?": ["Dribbling", "Shooting", "Passing"],
+  				"What is the most challenging aspect of teaching basketball remotely?": ["Maintaining engagement", "Demonstrating techniques", "Providing individual feedback"],
+  				"Which aspect of basketball do kids enjoy the most in a remote setting?": ["Virtual team challenges", "Watching professional games", "Online skills tutorials"],
+  				"How important is it to incorporate fun games into remote basketball lessons?": ["Essential for engagement", "Moderately important", "Not necessary, focus should be on skills only"],
+				"What type of online resources do you find most helpful for teaching basketball?": ["Video tutorials", "Interactive drills", "Live coaching sessions"],
+				"Which motivational method do you find most effective for encouraging practice in a remote setting?": ["Virtual rewards and badges", "Personalized feedback", "Group competitions"],
+ 				"What is the ideal duration for a remote basketball lesson for grade school kids?": ["30 minutes", "45 minutes", "60 minutes"],
+    				"How effective are online group discussions in enhancing basketball understanding among kids?": ["Highly effective", "Moderately effective", "Not effective at all"],
+    				"What are the biggest challenges you face while teaching basketball remotely?": ["Limited access to equipment", "Lack of face-to-face interaction", "Difficulty in assessing progress"],
+    				"How do you encourage teamwork and camaraderie among kids in a remote basketball class?": ["Virtual team-building activities", "Collaborative skill challenges", "Peer-to-peer mentoring"],
 				}
 
 	@classmethod
